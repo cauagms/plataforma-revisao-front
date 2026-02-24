@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
 })
@@ -13,9 +14,9 @@ export class Login {
   loading = false;
   showPassword = false;
 
- form;
+  form;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -33,14 +34,12 @@ export class Login {
 
   onForgotPassword(event: Event) {
     event.preventDefault();
-    // aqui você navega ou abre modal
     console.log('Esqueceu a senha');
   }
 
   onCreateAccount(event: Event) {
     event.preventDefault();
-    // aqui você navega pro cadastro
-    console.log('Criar conta');
+    this.router.navigate(['/cadastro']);
   }
 
   async onSubmit() {
@@ -53,7 +52,6 @@ export class Login {
       const { email, password, remember } = this.form.value;
       console.log('Login payload:', { email, password, remember });
 
-      // simulação
       await new Promise((r) => setTimeout(r, 800));
     } finally {
       this.loading = false;
