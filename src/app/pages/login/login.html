@@ -1,0 +1,62 @@
+<div class="page">
+  <div class="card">
+    <div class="icon-wrap" aria-hidden="true">
+      <span class="icon">→</span>
+    </div>
+
+    <h1 class="title">Login</h1>
+    <p class="subtitle">Entre com suas credenciais para acessar sua conta</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      
+      <label class="label" for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="input"
+        placeholder="seu@email.com"
+        formControlName="email"
+        autocomplete="email"
+      />
+
+      @if (submitted && f.email.invalid) {
+        <small class="error">Informe um email válido.</small>
+      }
+
+      <label class="label" for="senha">Senha</label>
+      <input
+        id="senha"
+        type="password"
+        class="input"
+        placeholder="••••••••"
+        formControlName="password"
+        autocomplete="current-password"
+      />
+
+      @if (submitted && f.password.invalid) {
+        <small class="error">A senha é obrigatória.</small>
+      }
+
+      <div class="row">
+        <label class="remember">
+          <input type="checkbox" formControlName="remember" />
+          <span>Lembrar-me</span>
+        </label>
+
+        <a class="link" href="#" (click)="onForgotPassword($event)">
+          Esqueceu a senha?
+        </a>
+      </div>
+
+      <button class="btn" type="submit" [disabled]="loading">
+        @if (loading) { Entrando... } @else { Entrar }
+      </button>
+
+    </form>
+
+    <p class="footer">
+      Não tem uma conta?
+      <a class="link" href="#" (click)="onCreateAccount($event)">Criar conta</a>
+    </p>
+  </div>
+</div>
