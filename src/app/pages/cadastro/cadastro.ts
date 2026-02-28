@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -14,23 +22,30 @@ export class Cadastro {
   loading = false;
   showPassword = false;
   showConfirmPassword = false;
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-      terms: [false, Validators.requiredTrue]
-    });
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
+    this.form = this.fb.group(
+      {
+        nome: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        senha: ['', [Validators.required, Validators.minLength(8), this.uppercaseValidator]],
+        confirmSenha: ['', Validators.required],
+        terms: [false, Validators.requiredTrue],
+      },
+      { validators: this.passwordMatchValidator }
+    );
   }
 
   get f() {
     return this.form.controls as {
       nome: any;
       email: any;
-      password: any;
-      confirmPassword: any;
+      senha: any;
+      confirmSenha: any;
       terms: any;
     };
   }
@@ -45,9 +60,31 @@ export class Cadastro {
 
   onSubmit() {
     this.submitted = true;
+    this.errorMessage = null;
     if (this.form.invalid) return;
 
     this.loading = true;
-    // lógica de cadastro aqui
+    const { nome, email, senha } = this.form.value;
+
+    this.authService.register({ nome, email, senha }).subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        this.errorMessage = err.error?.message || err.error?.detail || 'Erro ao criar conta. Tente novamente.';
+      },
+    });
+  }
+
+  private uppercaseValidator(control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value || '';
+    return /[A-Z]/.test(value) ? null : { noUppercase: true };
+  }
+
+  private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const senha = control.get('senha')?.value;
+    const confirmSenha = control.get('confirmSenha')?.value;
+    return senha === confirmSenha ? null : { passwordMismatch: true };
   }
 }

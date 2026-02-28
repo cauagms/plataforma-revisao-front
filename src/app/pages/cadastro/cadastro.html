@@ -27,7 +27,7 @@
         id="email"
         type="email"
         class="input"
-        placeholder="seuemail@.com"
+        placeholder="seuemail@email.com"
         formControlName="email"
         autocomplete="email"
       />
@@ -42,7 +42,7 @@
           [type]="showPassword ? 'text' : 'password'"
           class="input"
           placeholder="••••••••"
-          formControlName="password"
+          formControlName="senha"
           autocomplete="new-password"
         />
         <button type="button" class="toggle-btn" (click)="togglePassword()">
@@ -60,9 +60,13 @@
           }
         </button>
       </div>
-      <small class="hint">Mínimo de 6 caracteres</small>
-      @if (submitted && f.password.invalid) {
-        <small class="error">A senha deve ter no mínimo 6 caracteres.</small>
+      <small class="hint">Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula</small>
+      @if (submitted && f.senha.hasError('required')) {
+        <small class="error">A senha é obrigatória.</small>
+      } @else if (submitted && f.senha.hasError('minlength')) {
+        <small class="error">A senha deve ter no mínimo 8 caracteres.</small>
+      } @else if (submitted && f.senha.hasError('noUppercase')) {
+        <small class="error">A senha deve conter pelo menos 1 letra maiúscula.</small>
       }
 
       <label class="label" for="confirmar">Confirmar senha</label>
@@ -72,7 +76,7 @@
           [type]="showConfirmPassword ? 'text' : 'password'"
           class="input"
           placeholder="••••••••"
-          formControlName="confirmPassword"
+          formControlName="confirmSenha"
           autocomplete="new-password"
         />
         <button type="button" class="toggle-btn" (click)="toggleConfirmPassword()">
@@ -90,7 +94,7 @@
           }
         </button>
       </div>
-      @if (submitted && f.confirmPassword.invalid) {
+      @if (submitted && (f.confirmSenha.invalid || form.hasError('passwordMismatch'))) {
         <small class="error">As senhas não coincidem.</small>
       }
 
@@ -100,6 +104,10 @@
       </label>
       @if (submitted && f.terms.invalid) {
         <small class="error">Você precisa aceitar os termos.</small>
+      }
+
+      @if (errorMessage) {
+        <small class="error api-error">{{ errorMessage }}</small>
       }
 
       <button class="btn" type="submit" [disabled]="loading">

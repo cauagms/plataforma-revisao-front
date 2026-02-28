@@ -14,7 +14,7 @@
         id="email"
         type="email"
         class="input"
-        placeholder="seuemail@.com"
+        placeholder="seuemail@email.com"
         formControlName="email"
         autocomplete="email"
       />
@@ -29,7 +29,7 @@
           [type]="showPassword ? 'text' : 'password'"
           class="input"
           placeholder="••••••••"
-          formControlName="password"
+          formControlName="senha"
           autocomplete="current-password"
         />
         <button type="button" class="toggle-btn" (click)="togglePassword()">
@@ -47,7 +47,7 @@
           }
         </button>
       </div>
-      @if (submitted && f.password.invalid) {
+      @if (submitted && f.senha.invalid) {
         <small class="error">A senha é obrigatória.</small>
       }
 
@@ -59,6 +59,10 @@
         <a class="link" href="#" (click)="onForgotPassword($event)">Esqueceu a senha?</a>
       </div>
 
+      @if (errorMessage) {
+        <small class="error api-error">{{ errorMessage }}</small>
+      }
+
       <button class="btn" type="submit" [disabled]="loading">
         @if (loading) { Entrando... } @else { Entrar }
       </button>
@@ -67,7 +71,7 @@
 
     <p class="footer">
       Não tem uma conta?
-      <a class="link" href="#" (click)="onCreateAccount($event)">Criar conta</a>
+      <a class="link" routerLink="/cadastro">Criar conta</a>
     </p>
   </div>
 </div>
