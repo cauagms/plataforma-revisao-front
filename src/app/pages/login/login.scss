@@ -9,6 +9,8 @@
   justify-content: center;
   align-items: center;
   background: #ffffff;
+  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
 .card {
@@ -164,4 +166,60 @@
   margin-top: 8px;
   color: #d92d20;
   font-size: 12px;
+}
+
+// Mobile (até 480px)
+@media (max-width: 480px) {
+  .page {
+    padding: 16px 12px;
+  }
+
+  .card {
+    padding: 24px 18px 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin: 8px 0 18px;
+  }
+
+  .icon-wrap {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 12px;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+
+  .row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn {
+    height: 44px;
+    font-size: 14px;
+  }
+}
+
+// Tablet (481px a 768px)
+@media (min-width: 481px) and (max-width: 768px) {
+  .card {
+    max-width: 440px;
+    padding: 30px 28px 24px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
 }
