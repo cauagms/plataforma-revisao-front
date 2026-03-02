@@ -45,14 +45,18 @@
           formControlName="senha"
           autocomplete="new-password"
         />
-        <button type="button" class="toggle-btn" (click)="togglePassword()">
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="togglePassword()"
+          aria-label="Mostrar ou ocultar senha">
           @if (!showPassword) {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
           } @else {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
               <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
               <line x1="1" y1="1" x2="23" y2="23"/>
@@ -60,7 +64,9 @@
           }
         </button>
       </div>
+
       <small class="hint">Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula</small>
+
       @if (submitted && f.senha.hasError('required')) {
         <small class="error">A senha é obrigatória.</small>
       } @else if (submitted && f.senha.hasError('minlength')) {
@@ -79,14 +85,18 @@
           formControlName="confirmSenha"
           autocomplete="new-password"
         />
-        <button type="button" class="toggle-btn" (click)="toggleConfirmPassword()">
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="toggleConfirmPassword()"
+          aria-label="Mostrar ou ocultar confirmação de senha">
           @if (!showConfirmPassword) {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
           } @else {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
               <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
               <line x1="1" y1="1" x2="23" y2="23"/>
@@ -94,6 +104,7 @@
           }
         </button>
       </div>
+
       @if (submitted && (f.confirmSenha.invalid || form.hasError('passwordMismatch'))) {
         <small class="error">As senhas não coincidem.</small>
       }
@@ -102,6 +113,7 @@
         <input type="checkbox" formControlName="terms" />
         <span>Concordo com os <a class="link" href="#">termos de serviço</a> e <a class="link" href="#">política de privacidade</a></span>
       </label>
+
       @if (submitted && f.terms.invalid) {
         <small class="error">Você precisa aceitar os termos.</small>
       }
@@ -113,7 +125,6 @@
       <button class="btn" type="submit" [disabled]="loading">
         @if (loading) { Criando conta... } @else { Criar conta }
       </button>
-
     </form>
 
     <p class="footer">
