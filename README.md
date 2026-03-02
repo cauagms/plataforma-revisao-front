@@ -1,4 +1,5 @@
-# Plataforma de Revisão Inteligente por Matérias — Front-end
+# Plataforma de Revisão Inteligente por Matérias
+— Front-end
 
 Interface web responsável pela experiência do usuário da Plataforma de Revisão Inteligente por Matérias. Permite que alunos organizem seus estudos e que professores acompanhem o engajamento acadêmico por meio de uma interface moderna, reativa e segura.
 
