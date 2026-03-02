@@ -8,9 +8,21 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'cadastro', component: Cadastro },
   {
-    path: 'home',
+    path: '',
     canActivate: [authGuard],
-    loadComponent: () => import('../pages/login/login').then((m) => m.Login), // placeholder
+    loadComponent: () => import('../layout/layout').then((m) => m.Layout),
+    children: [
+      {
+        path: 'disciplinas',
+        loadComponent: () =>
+          import('../pages/disciplinas/disciplinas').then((m) => m.Disciplinas),
+      },
+      {
+        path: 'home',
+        redirectTo: 'disciplinas',
+        pathMatch: 'full',
+      },
+    ],
   },
   { path: '**', redirectTo: 'login' },
 ];

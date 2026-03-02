@@ -1,0 +1,95 @@
+<section class="pagina">
+  <header class="cabecalho">
+    <h1 class="titulo">Disciplinas</h1>
+    <p class="subtitulo">Gerencie suas disciplinas e acompanhe o progresso de revisão</p>
+  </header>
+
+  @if (disciplinas.length === 0) {
+    <section class="container-vazio" aria-label="Estado vazio">
+      <div class="vazio">
+        <div class="vazio-icone" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9a9caa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h2 class="vazio-titulo">Nenhuma disciplina cadastrada</h2>
+        <p class="vazio-texto">Comece criando sua primeira disciplina para organizar seus estudos.</p>
+        <button type="button" class="btn-criar">Criar primeira disciplina</button>
+      </div>
+    </section>
+  } @else {
+    <section class="grid-disciplinas" aria-label="Lista de disciplinas">
+      @for (d of disciplinas; track d.id) {
+        <article class="card">
+          <header class="card-header">
+            <div class="card-nome">
+              <span class="cor-indicador" [style.background]="d.cor" aria-hidden="true"></span>
+              <h2 class="nome">{{ d.nome }}</h2>
+            </div>
+            <div class="card-menu-wrapper">
+              <button
+                type="button"
+                class="btn-menu"
+                (click)="toggleMenu(d.id)"
+                [attr.aria-expanded]="menuAbertoId === d.id"
+                aria-haspopup="menu"
+                aria-label="Opções de {{ d.nome }}"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="5" r="1"/>
+                  <circle cx="12" cy="12" r="1"/>
+                  <circle cx="12" cy="19" r="1"/>
+                </svg>
+              </button>
+              @if (menuAbertoId === d.id) {
+                <ul class="dropdown" role="menu">
+                  <li role="none">
+                    <button type="button" class="dropdown-item" role="menuitem" (click)="fecharMenu()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                      </svg>
+                      Editar
+                    </button>
+                  </li>
+                  <li role="none">
+                    <button type="button" class="dropdown-item dropdown-item--excluir" role="menuitem" (click)="fecharMenu()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d92d20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      </svg>
+                      Excluir
+                    </button>
+                  </li>
+                </ul>
+              }
+            </div>
+          </header>
+
+          <div class="card-progresso" role="img" attr.aria-label="Progresso: {{ d.percentualRevisados }}% revisados">
+            <div class="barra-fundo">
+              <div class="barra-preenchida" [style.width.%]="d.percentualRevisados" [style.background]="d.cor"></div>
+            </div>
+          </div>
+
+          <p class="card-info">
+            <span class="topicos">{{ d.totalTopicos }} tópicos</span>
+            @if (d.percentualRevisados > 0) {
+              <span class="percentual">{{ d.percentualRevisados }}% revisados</span>
+            }
+          </p>
+
+          <footer class="card-badge">
+            @if (d.pendentes > 0) {
+              <span class="badge badge--pendente">{{ d.pendentes }} pendentes</span>
+            } @else {
+              <span class="badge badge--revisado">{{ d.revisados }} revisados</span>
+            }
+          </footer>
+        </article>
+      }
+    </section>
+  }
+</section>
