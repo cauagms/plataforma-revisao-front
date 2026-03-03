@@ -20,6 +20,12 @@ $btn-bg: #0d0f1a;
 }
 
 // ─── Cabeçalho ──────────────────────────────────────
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .titulo {
   font-size: 28px;
   font-weight: 700;
@@ -31,6 +37,19 @@ $btn-bg: #0d0f1a;
   font-size: 14px;
   color: $texto-secundario;
   margin: 8px 0 28px;
+}
+
+// ─── Loading e erro ─────────────────────────────────
+.carregando-texto {
+  font-size: 14px;
+  color: $texto-secundario;
+  margin: 0;
+}
+
+.erro-texto {
+  font-size: 14px;
+  color: #d92d20;
+  margin: 0;
 }
 
 // ─── Estado vazio ───────────────────────────────────
@@ -108,6 +127,7 @@ $btn-bg: #0d0f1a;
   border: 1px solid $borda;
   border-radius: 14px;
   padding: 22px 24px 20px;
+  min-height: 114px;
   transition: box-shadow 0.15s;
 
   &:hover {
@@ -119,7 +139,6 @@ $btn-bg: #0d0f1a;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 }
 
 .card-nome {
@@ -209,97 +228,242 @@ $btn-bg: #0d0f1a;
   }
 }
 
-// ─── Progresso ──────────────────────────────────────
-.card-progresso {
-  margin-bottom: 12px;
+// ─── Modal ──────────────────────────────────────────
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
 }
 
-.barra-fundo {
+.modal {
+  background: #fff;
+  border-radius: 16px;
   width: 100%;
-  height: 6px;
-  background: #f0f0f3;
-  border-radius: 3px;
-  overflow: hidden;
+  max-width: 540px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.barra-preenchida {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-// ─── Info (tópicos + percentual) ────────────────────
-.card-info {
+.modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 0 0 12px;
+  align-items: flex-start;
+  margin-bottom: 28px;
 }
 
-.topicos {
-  font-size: 13px;
+.modal-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0 0 4px;
+}
+
+.modal-subtitulo {
+  font-size: 14px;
   color: $texto-secundario;
+  margin: 0;
 }
 
-.percentual {
-  font-size: 13px;
-  color: $texto-secundario;
-}
-
-// ─── Badge de status ────────────────────────────────
-.card-badge {
+.modal-fechar {
+  background: none;
+  border: 1px solid $borda;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
   display: flex;
-  gap: 8px;
-}
-
-.badge {
-  display: inline-flex;
   align-items: center;
-  height: 26px;
-  padding: 0 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: 16px;
 
-  &--revisado {
-    background: #ecfdf3;
-    color: #16a34a;
-  }
-
-  &--pendente {
+  &:hover {
     background: #f4f4f6;
-    color: $texto-secundario;
   }
 }
 
-// ─── Responsivo ─────────────────────────────────────
-@media (max-width: 480px) {
-  .titulo {
-    font-size: 22px;
+.modal-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.campo-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  margin-bottom: 8px;
+}
+
+.campo-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  font-size: 14px;
+  color: $texto-primario;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #9a9caa;
   }
 
-  .subtitulo {
-    font-size: 13px;
-    margin-bottom: 20px;
-  }
-
-  .grid-disciplinas {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .container-vazio {
-    padding: 24px 16px;
-  }
-
-  .card {
-    padding: 18px 16px 16px;
+  &:focus {
+    border-color: #6366f1;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-  .grid-disciplinas {
-    grid-template-columns: 1fr;
-    gap: 16px;
+.campo-cores {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cores-lista {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cor-opcao {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+  outline-offset: 2px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &--selecionada {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px currentColor;
   }
 }
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.btn-cancelar {
+  height: 44px;
+  padding: 0 24px;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  background: #fff;
+  color: $texto-primario;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+.btn-confirmar {
+  height: 44px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 12px;
+  background: $btn-bg;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Modal de exclusão ─────────────────────────────
+.modal--excluir {
+  max-width: 480px;
+}
+
+.modal-corpo-excluir {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.excluir-pergunta {
+  font-size: 14px;
+  color: $texto-primario;
+  margin: 0;
+  line-height: 1.5;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.excluir-aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fffaeb;
+  border: 1px solid #fedf89;
+  border-radius: 12px;
+  padding: 16px;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #b54708;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.btn-excluir {
+  height: 44px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 12px;
+  background: #d92d20;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@import './disciplinas.responsivo';
