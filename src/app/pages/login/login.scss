@@ -171,7 +171,8 @@
 // Mobile (até 480px)
 @media (max-width: 480px) {
   .page {
-    padding: 16px 12px;
+    padding: 24px 12px;
+    align-items: flex-start;
   }
 
   .card {
@@ -201,9 +202,9 @@
   }
 
   .row {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 20px;
+    padding-right: 6px;
   }
 
   .btn {

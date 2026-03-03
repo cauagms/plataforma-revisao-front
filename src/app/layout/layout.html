@@ -1,18 +1,4 @@
 <div class="layout" [class.sidebar-aberta]="sidebarAberta">
-  <button
-    class="menu-toggle"
-    type="button"
-    (click)="toggleSidebar()"
-    aria-label="Abrir menu"
-    [attr.aria-expanded]="sidebarAberta"
-    aria-controls="menu-lateral">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <line x1="3" y1="12" x2="21" y2="12"/>
-      <line x1="3" y1="18" x2="21" y2="18"/>
-    </svg>
-  </button>
-
   <div
     class="overlay"
     [class.overlay--visivel]="sidebarAberta"
@@ -117,6 +103,19 @@
   </aside>
 
   <main class="conteudo">
+    <button
+      class="menu-toggle"
+      type="button"
+      (click)="toggleSidebar()"
+      aria-label="Abrir menu"
+      [attr.aria-expanded]="sidebarAberta"
+      aria-controls="menu-lateral">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
     <router-outlet />
   </main>
 </div>
