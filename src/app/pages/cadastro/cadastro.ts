@@ -34,7 +34,6 @@ export class Cadastro {
         email: ['', [Validators.required, Validators.email]],
         senha: ['', [Validators.required, Validators.minLength(8), this.uppercaseValidator]],
         confirmSenha: ['', Validators.required],
-        terms: [false, Validators.requiredTrue],
       },
       { validators: this.passwordMatchValidator }
     );
@@ -46,7 +45,6 @@ export class Cadastro {
       email: any;
       senha: any;
       confirmSenha: any;
-      terms: any;
     };
   }
 

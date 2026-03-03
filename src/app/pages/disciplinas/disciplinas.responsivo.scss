@@ -1,11 +1,18 @@
 // ─── Responsivo — Disciplinas ───────────────────────
 
 @media (max-width: 768px) {
+  .pagina {
+    position: relative;
+  }
+
+  .cabecalho {
+    align-items: center;
+  }
+
   .cabecalho .btn-criar {
-    position: fixed;
-    top: 16px;
-    right: 20px;
-    z-index: 120;
+    position: absolute;
+    top: -62px;
+    right: 0;
   }
 }
 

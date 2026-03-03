@@ -109,15 +109,6 @@
         <small class="error">As senhas não coincidem.</small>
       }
 
-      <label class="terms">
-        <input type="checkbox" formControlName="terms" />
-        <span>Concordo com os <a class="link" href="#">termos de serviço</a> e <a class="link" href="#">política de privacidade</a></span>
-      </label>
-
-      @if (submitted && f.terms.invalid) {
-        <small class="error">Você precisa aceitar os termos.</small>
-      }
-
       @if (errorMessage) {
         <small class="error api-error">{{ errorMessage }}</small>
       }
