@@ -1,0 +1,60 @@
+// ─── Responsivo — Disciplinas ───────────────────────
+
+@media (max-width: 768px) {
+  .cabecalho .btn-criar {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 120;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 22px;
+  }
+
+  .subtitulo {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .grid-disciplinas {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .container-vazio {
+    padding: 24px 16px;
+  }
+
+  .card {
+    padding: 18px 16px 16px;
+  }
+
+  .modal-overlay {
+    align-items: flex-start;
+    padding-top: 80px;
+  }
+
+  .modal {
+    padding: 24px 20px;
+  }
+
+  .modal-acoes {
+    flex-direction: column;
+  }
+
+  .btn-cancelar,
+  .btn-confirmar {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .grid-disciplinas {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
