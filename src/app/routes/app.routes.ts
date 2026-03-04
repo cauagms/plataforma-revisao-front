@@ -18,6 +18,11 @@ export const routes: Routes = [
           import('../pages/disciplinas/disciplinas').then((m) => m.Disciplinas),
       },
       {
+        path: 'disciplinas/:id',
+        loadComponent: () =>
+          import('../pages/topicos/topicos').then((m) => m.TopicosPage),
+      },
+      {
         path: 'home',
         redirectTo: 'disciplinas',
         pathMatch: 'full',

@@ -1,0 +1,247 @@
+<section class="pagina">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a routerLink="/disciplinas" class="breadcrumb-link">Disciplinas</a>
+    <span class="breadcrumb-separador" aria-hidden="true">›</span>
+    <span class="breadcrumb-atual">{{ disciplina?.nome }}</span>
+  </nav>
+
+  @if (carregando) {
+    <p class="carregando-texto">Carregando...</p>
+  } @else if (erro) {
+    <div class="erro-container">
+      <p class="erro-texto">{{ erro }}</p>
+      <a routerLink="/disciplinas" class="btn-voltar">Voltar para disciplinas</a>
+    </div>
+  } @else if (disciplina) {
+    <header class="cabecalho-disciplina">
+      <div>
+        <div class="disciplina-nome">
+          <span class="cor-indicador" [style.background]="disciplina.cor" aria-hidden="true"></span>
+          <h1 class="titulo">{{ disciplina.nome }}</h1>
+        </div>
+        @if (topicos.length > 0) {
+          <p class="info-topicos">
+            {{ topicos.length }} {{ topicos.length === 1 ? 'tópico' : 'tópicos' }}
+            · {{ percentualRevisados }}% revisados
+          </p>
+        }
+      </div>
+      @if (topicos.length > 0) {
+        <button type="button" class="btn-criar" (click)="abrirModal()">+ Novo tópico</button>
+      }
+    </header>
+
+    @if (topicos.length === 0) {
+      <section class="container-vazio" aria-label="Estado vazio">
+        <div class="vazio">
+          <div class="vazio-icone" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9a9caa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="9" y1="10" x2="15" y2="10"/>
+              <line x1="9" y1="14" x2="15" y2="14"/>
+              <line x1="9" y1="6" x2="11" y2="6"/>
+            </svg>
+          </div>
+          <h2 class="vazio-titulo">Nenhum tópico cadastrado</h2>
+          <p class="vazio-texto">
+            Comece adicionando o primeiro tópico para organizar
+            o conteúdo de <strong>{{ disciplina.nome }}</strong>.
+          </p>
+          <button type="button" class="btn-criar" (click)="abrirModal()">+ Criar primeiro tópico</button>
+        </div>
+      </section>
+    } @else {
+      <section class="tabela-container" aria-label="Lista de tópicos">
+        <div class="busca-container">
+          <svg class="busca-icone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9a9caa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            class="busca-input"
+            placeholder="Buscar tópico..."
+            [(ngModel)]="buscaTopico"
+            autocomplete="off"
+          />
+        </div>
+        <div class="tabela-header">
+          <span class="col-topico">TÓPICO</span>
+          <span class="col-status">STATUS</span>
+          <span class="col-revisao">ÚLTIMA REVISÃO</span>
+          <span class="col-revisoes">REVISÕES</span>
+          <span class="col-acoes"></span>
+        </div>
+        @for (topico of topicosFiltrados; track topico.id) {
+          <div class="tabela-row">
+            <span class="col-topico topico-titulo">{{ topico.titulo }}</span>
+            <span class="col-status">
+              <span class="badge" [class.badge--pendente]="topico.status !== 'Revisado'" [class.badge--revisado]="topico.status === 'Revisado'">{{ topico.status }}</span>
+            </span>
+            <span class="col-revisao texto-secundario">{{ formatarData(topico.ultima_revisao_em) }}</span>
+            <span class="col-revisoes texto-secundario">{{ formatarRevisoes(topico.total_revisoes) }}</span>
+            <span class="col-acoes">
+              <div class="menu-wrapper">
+                <button
+                  type="button"
+                  class="btn-menu"
+                  (click)="toggleMenu(topico.id, $event)"
+                  [attr.aria-expanded]="menuAbertoId === topico.id"
+                  aria-haspopup="menu"
+                  aria-label="Opções de {{ topico.titulo }}"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="5" r="1"/>
+                    <circle cx="12" cy="12" r="1"/>
+                    <circle cx="12" cy="19" r="1"/>
+                  </svg>
+                </button>
+                @if (menuAbertoId === topico.id) {
+                  <ul class="dropdown" [class.dropdown--cima]="menuDirecao === 'cima'" role="menu">
+                    <li role="none">
+                      <button type="button" class="dropdown-item" role="menuitem" (click)="abrirModalEditar(topico)">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        Editar
+                      </button>
+                    </li>
+                    <li role="none">
+                      <button type="button" class="dropdown-item dropdown-item--excluir" role="menuitem" (click)="abrirModalExcluir(topico)">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d92d20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="3 6 5 6 21 6"/>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        Excluir
+                      </button>
+                    </li>
+                  </ul>
+                }
+              </div>
+            </span>
+          </div>
+        }
+      </section>
+    }
+  }
+</section>
+
+@if (modalAberto && disciplina) {
+  <div class="modal-overlay" (click)="fecharModalPeloOverlay($event)" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal">
+      <header class="modal-header">
+        <div>
+          <h2 id="modal-titulo" class="modal-titulo">Novo tópico</h2>
+          <p class="modal-subtitulo">Adicione um novo tópico em <strong>{{ disciplina.nome }}</strong></p>
+        </div>
+        <button type="button" class="modal-fechar" aria-label="Fechar modal" (click)="fecharModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </header>
+
+      <form [formGroup]="formulario" (ngSubmit)="criarTopico()" class="modal-corpo">
+        <div class="campo">
+          <label for="nome-topico" class="campo-label">Nome do tópico <span class="campo-obrigatorio">*</span></label>
+          <input
+            id="nome-topico"
+            type="text"
+            class="campo-input"
+            formControlName="titulo"
+            placeholder="Ex: Normalização de Dados"
+            autocomplete="off"
+          />
+        </div>
+
+        @if (erroCriacao) {
+          <p class="erro-texto" role="alert">{{ erroCriacao }}</p>
+        }
+
+        <footer class="modal-acoes">
+          <button type="button" class="btn-cancelar" (click)="fecharModal()" [disabled]="criando">Cancelar</button>
+          <button type="submit" class="btn-confirmar" [disabled]="criando">
+            {{ criando ? 'Criando...' : 'Criar tópico' }}
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+}
+
+@if (modalEditarAberto && topicoParaEditar) {
+  <div class="modal-overlay" (click)="fecharModalEditarPeloOverlay($event)" role="dialog" aria-modal="true" aria-labelledby="modal-editar-titulo">
+    <div class="modal">
+      <header class="modal-header">
+        <div>
+          <h2 id="modal-editar-titulo" class="modal-titulo">Editar tópico</h2>
+          <p class="modal-subtitulo">Atualize as informações do tópico</p>
+        </div>
+        <button type="button" class="modal-fechar" aria-label="Fechar modal" (click)="fecharModalEditar()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </header>
+
+      <form [formGroup]="formularioEditar" (ngSubmit)="editarTopico()" class="modal-corpo">
+        <div class="campo">
+          <label for="nome-topico-editar" class="campo-label">Nome do tópico <span class="campo-obrigatorio">*</span></label>
+          <input
+            id="nome-topico-editar"
+            type="text"
+            class="campo-input"
+            formControlName="titulo"
+            placeholder="Ex: Normalização de Dados"
+            autocomplete="off"
+          />
+        </div>
+
+        @if (erroEdicao) {
+          <p class="erro-texto" role="alert">{{ erroEdicao }}</p>
+        }
+
+        <footer class="modal-acoes">
+          <button type="button" class="btn-cancelar" (click)="fecharModalEditar()" [disabled]="editando">Cancelar</button>
+          <button type="submit" class="btn-confirmar" [disabled]="editando">
+            {{ editando ? 'Salvando...' : 'Salvar alterações' }}
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+}
+
+@if (modalExcluirAberto && topicoParaExcluir) {
+  <div class="modal-overlay" (click)="fecharModalExcluirPeloOverlay($event)" role="dialog" aria-modal="true" aria-labelledby="modal-excluir-titulo">
+    <div class="modal modal--excluir">
+      <header class="modal-header">
+        <div>
+          <h2 id="modal-excluir-titulo" class="modal-titulo">Excluir tópico</h2>
+        </div>
+        <button type="button" class="modal-fechar" aria-label="Fechar modal" (click)="fecharModalExcluir()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="modal-corpo-excluir">
+        <p class="excluir-pergunta">Tem certeza que deseja excluir este tópico?</p>
+        <p class="excluir-nome">"{{ topicoParaExcluir.titulo }}"</p>
+        <p class="excluir-aviso-texto">Esta ação não poderá ser desfeita.</p>
+
+        <footer class="modal-acoes">
+          <button type="button" class="btn-cancelar" (click)="fecharModalExcluir()" [disabled]="excluindo">Cancelar</button>
+          <button type="button" class="btn-excluir" (click)="excluirTopico()" [disabled]="excluindo">
+            {{ excluindo ? 'Excluindo...' : 'Excluir tópico' }}
+          </button>
+        </footer>
+      </div>
+    </div>
+  </div>
+}
