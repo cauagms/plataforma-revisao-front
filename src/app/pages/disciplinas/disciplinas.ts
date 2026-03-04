@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, afterNextRender } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Disciplina } from '../../models/disciplina.model';
 import { DisciplinaService } from '../../services/disciplina.service';
 
@@ -46,6 +47,7 @@ export class Disciplinas {
     private fb: FormBuilder,
     private disciplinaService: DisciplinaService,
     private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {
     this.formulario = this.fb.group({
       nome: ['', [Validators.required, Validators.maxLength(100)]],
@@ -196,6 +198,10 @@ export class Disciplinas {
     if (event.target === event.currentTarget) {
       this.fecharModalExcluir();
     }
+  }
+
+  abrirDisciplina(disciplina: Disciplina) {
+    this.router.navigate(['/disciplinas', disciplina.id]);
   }
 
   excluirDisciplina() {

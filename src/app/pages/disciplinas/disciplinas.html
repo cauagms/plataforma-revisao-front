@@ -38,13 +38,13 @@
   } @else {
     <section class="grid-disciplinas" aria-label="Lista de disciplinas">
       @for (d of disciplinas; track d.id) {
-        <article class="card">
+        <article class="card" (click)="abrirDisciplina(d)" role="button" tabindex="0" (keydown.enter)="abrirDisciplina(d)">
           <header class="card-header">
             <div class="card-nome">
               <span class="cor-indicador" [style.background]="d.cor" aria-hidden="true"></span>
               <h2 class="nome">{{ d.nome }}</h2>
             </div>
-            <div class="card-menu-wrapper">
+            <div class="card-menu-wrapper" (click)="$event.stopPropagation()">
               <button
                 type="button"
                 class="btn-menu"
