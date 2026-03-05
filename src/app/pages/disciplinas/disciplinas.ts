@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, afterNextRender } from '@angular/core';
+import { Component, ChangeDetectorRef, afterNextRender, HostListener } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Disciplina } from '../../models/disciplina.model';
@@ -123,6 +123,11 @@ export class Disciplinas {
         this.cdr.markForCheck();
       },
     });
+  }
+
+  @HostListener('document:click')
+  fecharMenuAoClicarFora() {
+    this.menuAbertoId = null;
   }
 
   toggleMenu(id: number) {

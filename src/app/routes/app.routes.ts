@@ -13,6 +13,11 @@ export const routes: Routes = [
     loadComponent: () => import('../layout/layout').then((m) => m.Layout),
     children: [
       {
+        path: 'estudar-hoje',
+        loadComponent: () =>
+          import('../pages/estudar-hoje/estudar-hoje').then((m) => m.EstudarHoje),
+      },
+      {
         path: 'disciplinas',
         loadComponent: () =>
           import('../pages/disciplinas/disciplinas').then((m) => m.Disciplinas),
