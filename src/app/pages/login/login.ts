@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class Login {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -54,14 +56,19 @@ export class Login {
     this.loading = true;
     const { email, senha } = this.form.value;
 
-    this.authService.login({ email, senha }).subscribe({
-      next: () => {
-        this.loading = false;
-      },
-      error: (err) => {
-        this.loading = false;
-        this.errorMessage = err.error?.message || 'Erro ao fazer login. Tente novamente.';
-      },
-    });
+    this.authService
+      .login({ email, senha })
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe({
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Erro ao fazer login. Tente novamente.';
+          this.cdr.markForCheck();
+        },
+      });
   }
 }

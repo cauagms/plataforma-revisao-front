@@ -2,8 +2,7 @@ export interface Disciplina {
   id: number;
   nome: string;
   cor: string;
-  totalTopicos: number;
-  percentualRevisados: number;
-  revisados: number;
-  pendentes: number;
+  total_topicos: number;
+  topicos_revisados: number;
+  percentual_revisados: number;
 }
