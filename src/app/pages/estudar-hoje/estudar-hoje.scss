@@ -1,0 +1,524 @@
+$texto-primario: #12131a;
+$texto-secundario: #6b6f7b;
+$borda: #e9e9ee;
+$fundo-card: #fff;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+// ─── Cabeçalho ──────────────────────────────────────
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.subtitulo {
+  font-size: 14px;
+  color: $texto-secundario;
+  margin: 8px 0 28px;
+}
+
+// ─── Cards de Resumo ────────────────────────────────
+.cards-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.card-resumo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.card-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+
+  &--azul {
+    background: #eff2ff;
+    color: #4f6ef7;
+  }
+
+  &--vermelho {
+    background: #fef2f2;
+    color: #dc3545;
+  }
+
+  &--amarelo {
+    background: #fff8eb;
+    color: #d4930d;
+  }
+
+  &--verde {
+    background: #edfdf5;
+    color: #16a34a;
+  }
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-numero {
+  font-size: 26px;
+  font-weight: 700;
+  color: $texto-primario;
+  line-height: 1;
+}
+
+.card-label {
+  font-size: 13px;
+  color: $texto-secundario;
+  margin-top: 4px;
+}
+
+// ─── Seções de Tabela ───────────────────────────────
+.secao {
+  margin-bottom: 32px;
+}
+
+.secao-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.secao-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.secao-contador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: #f0f0f4;
+  color: $texto-secundario;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tabela-container {
+  display: block;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 14px;
+  overflow: hidden;
+
+  thead,
+  tbody {
+    display: contents;
+  }
+}
+
+.tabela-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 14px 24px;
+  border-bottom: 1px solid $borda;
+
+  th {
+    font-size: 11px;
+    font-weight: 600;
+    color: $texto-secundario;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0;
+  }
+}
+
+.tabela-linha {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 18px 24px;
+
+  & + & {
+    border-top: 1px solid $borda;
+  }
+
+  td {
+    padding: 0;
+  }
+}
+
+.col-topico {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.topico-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: $texto-primario;
+}
+
+.topico-disciplina {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: $texto-secundario;
+}
+
+.cor-bolinha {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+// ─── Badges ─────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &--atrasado {
+    background: #fef2f2;
+    color: #d92d20;
+    border: 1px solid #fecaca;
+  }
+
+  &--revisar-hoje {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+
+  &--primeira-revisao {
+    background: #f5f5f7;
+    color: #4a4d5a;
+    border: 1px solid #d1d1d8;
+  }
+}
+
+.col-revisao {
+  font-size: 14px;
+  color: $texto-secundario;
+}
+
+.texto-italic {
+  font-style: italic;
+}
+
+.col-acao {
+  display: flex;
+}
+
+.btn-revisar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #0d0f1a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #1a1d2e;
+  }
+}
+
+// ─── Modal ──────────────────────────────────────────
+$btn-bg: #0d0f1a;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 540px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.modal-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0 0 4px;
+}
+
+.modal-subtitulo {
+  font-size: 14px;
+  color: $texto-secundario;
+  margin: 0;
+}
+
+.modal-fechar {
+  background: none;
+  border: 1px solid $borda;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: 16px;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+.modal-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.info-bloco {
+  background: #fafafa;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-linha {
+  display: flex;
+  gap: 16px;
+}
+
+.info-label {
+  font-size: 14px;
+  color: $texto-secundario;
+  min-width: 80px;
+}
+
+.info-valor {
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.campo-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  margin-bottom: 4px;
+}
+
+.campo-descricao {
+  font-size: 13px;
+  color: $texto-secundario;
+  margin: 0 0 10px;
+}
+
+.campo-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: $texto-primario;
+  background: #fff;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #9a9caa;
+  }
+
+  &:focus {
+    border-color: #6366f1;
+  }
+}
+
+.campo-erro {
+  font-size: 13px;
+  color: #d92d20;
+  margin: 6px 0 0;
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.btn-cancelar {
+  height: 44px;
+  padding: 0 24px;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  background: #fff;
+  color: $texto-primario;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+.btn-confirmar {
+  height: 44px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 12px;
+  background: $btn-bg;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+// ─── Toast ──────────────────────────────────────────
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid $borda;
+  border-radius: 12px;
+  padding: 14px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  animation: toast-entrada 0.3s ease;
+}
+
+.toast-icone {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.toast-texto {
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  white-space: nowrap;
+}
+
+@keyframes toast-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Responsivo ─────────────────────────────────────
+@media (max-width: 900px) {
+  .cards-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tabela-header {
+    display: none;
+  }
+
+  .tabela-linha {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .col-acao {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+}
