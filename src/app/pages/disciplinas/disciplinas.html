@@ -83,6 +83,14 @@
               }
             </div>
           </header>
+          <div class="card-stats">
+            <span class="stat">{{ d.total_topicos || 0 }} tópicos</span>
+            <span class="stat">{{ (d.total_topicos || 0) - (d.topicos_revisados || 0) }} pendentes</span>
+            <span class="stat">{{ d.percentual_revisados || 0 }}% revisados</span>
+          </div>
+          <div class="card-barra">
+            <div class="card-barra-preenchimento" [style.width.%]="d.percentual_revisados || 0" [style.background]="d.cor"></div>
+          </div>
         </article>
       }
     </section>

@@ -166,6 +166,33 @@ $btn-bg: #0d0f1a;
   margin: 0;
 }
 
+// ─── Stats e barra de progresso ────────────────────
+.card-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.stat {
+  font-size: 13px;
+  color: $texto-secundario;
+  font-weight: 500;
+}
+
+.card-barra {
+  height: 6px;
+  background: #f4f4f6;
+  border-radius: 3px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.card-barra-preenchimento {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
 // ─── Menu de ações ──────────────────────────────────
 .card-menu-wrapper {
   position: relative;
