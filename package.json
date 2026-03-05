@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "lint": "eslint . --ext .ts,.html",
     "serve:ssr:Plat-front": "node dist/Plat-front/server/server.mjs"
   },
   "prettier": {
@@ -37,11 +38,17 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^21.3.0",
+    "@angular-eslint/eslint-plugin-template": "^21.3.0",
+    "@angular-eslint/template-parser": "^21.3.0",
     "@angular/build": "^21.1.5",
     "@angular/cli": "^21.1.5",
     "@angular/compiler-cli": "^21.1.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.2",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
