@@ -5,6 +5,7 @@ import { Disciplina } from '../../models/disciplina.model';
 import { Topico } from '../../models/topico.model';
 import { DisciplinaService } from '../../services/disciplina.service';
 import { TopicoService } from '../../services/topico.service';
+import { parseApiUtcDate } from '../../utils/date';
 
 @Component({
   selector: 'app-topicos',
@@ -57,7 +58,8 @@ export class TopicosPage {
 
   formatarData(data: string | null): string {
     if (!data) return '—';
-    const date = new Date(data);
+    const date = parseApiUtcDate(data);
+    if (!date) return '—';
     const hoje = new Date();
     const ontem = new Date();
     ontem.setDate(hoje.getDate() - 1);

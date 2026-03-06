@@ -7,6 +7,7 @@ import {
   TopicoEstudarHoje,
   ResumoEstudarHoje,
 } from '../../services/estudar-hoje.service';
+import { parseApiUtcDate } from '../../utils/date';
 
 @Component({
   selector: 'app-estudar-hoje',
@@ -128,7 +129,8 @@ export class EstudarHoje implements OnInit {
 
   formatarUltimaRevisao(dataIso: string | null): string {
     if (!dataIso) return 'Nunca revisado';
-    const data = new Date(dataIso);
+    const data = parseApiUtcDate(dataIso);
+    if (!data) return 'Nunca revisado';
     const agora = new Date();
     const diffMs = agora.getTime() - data.getTime();
     const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
