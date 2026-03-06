@@ -13,7 +13,7 @@ import {
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './estudar-hoje.html',
-  styleUrls: ['./estudar-hoje.scss'],
+  styleUrls: ['./estudar-hoje.scss', './estudar-hoje.responsivo.scss'],
 })
 export class EstudarHoje implements OnInit {
   private destroyRef = inject(DestroyRef);
