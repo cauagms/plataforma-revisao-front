@@ -14,7 +14,6 @@
         id="email"
         type="email"
         class="input"
-        placeholder="seuemail@email.com"
         formControlName="email"
         autocomplete="email"
       />
@@ -28,7 +27,6 @@
           id="senha"
           [type]="showPassword ? 'text' : 'password'"
           class="input"
-          placeholder="••••••••"
           formControlName="senha"
           autocomplete="current-password"
         />
@@ -52,10 +50,6 @@
       }
 
       <div class="row">
-        <label class="remember">
-          <input type="checkbox" formControlName="remember" />
-          <span>Lembrar-me</span>
-        </label>
         <a class="link" href="#" (click)="onForgotPassword($event)">Esqueceu a senha?</a>
       </div>
 
