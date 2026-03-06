@@ -39,6 +39,12 @@ export class Layout implements OnInit {
     this.sidebarAberta = false;
   }
 
+  fecharSidebarAposNavegacao() {
+    if (window.innerWidth <= 1024) {
+      this.fecharSidebar();
+    }
+  }
+
   sair() {
     this.authService.logout();
   }

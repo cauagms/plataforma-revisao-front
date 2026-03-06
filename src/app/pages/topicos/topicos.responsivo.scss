@@ -76,7 +76,7 @@
   }
 
   .tabela-container {
-    overflow-x: auto;
+    overflow: visible;
   }
 
   .tabela-header,
@@ -85,6 +85,20 @@
     padding: 10px 12px;
     column-gap: 10px;
     row-gap: 0;
+  }
+
+  .tabela-row {
+    position: relative;
+
+    &--menu-aberto {
+      z-index: 2;
+    }
+  }
+
+  .col-acoes,
+  .menu-wrapper {
+    position: relative;
+    overflow: visible;
   }
 
   .tabela-header {

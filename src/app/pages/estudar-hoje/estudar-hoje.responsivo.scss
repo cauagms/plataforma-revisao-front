@@ -1,0 +1,28 @@
+@media (max-width: 900px) {
+  .cards-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tabela-header {
+    display: none;
+  }
+
+  .tabela-linha {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .col-acao {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+}

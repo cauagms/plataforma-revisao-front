@@ -73,7 +73,7 @@
           <span class="col-acoes"></span>
         </div>
         @for (topico of topicosFiltrados; track topico.id) {
-          <div class="tabela-row">
+          <div class="tabela-row" [class.tabela-row--menu-aberto]="menuAbertoId === topico.id">
             <span class="col-topico topico-titulo">{{ topico.titulo }}</span>
             <span class="col-status">
               <span class="badge" [class.badge--pendente]="topico.status !== 'Revisado'" [class.badge--revisado]="topico.status === 'Revisado'">{{ topico.status }}</span>
