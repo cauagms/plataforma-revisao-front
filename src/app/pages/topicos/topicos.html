@@ -76,7 +76,14 @@
           <div class="tabela-row" [class.tabela-row--menu-aberto]="menuAbertoId === topico.id">
             <span class="col-topico topico-titulo">{{ topico.titulo }}</span>
             <span class="col-status">
-              <span class="badge" [class.badge--pendente]="topico.status !== 'Revisado'" [class.badge--revisado]="topico.status === 'Revisado'">{{ topico.status }}</span>
+              <span
+                class="badge"
+                [class.badge--pendente]="topico.status !== 'Revisado' && topico.status !== 'Atrasado'"
+                [class.badge--revisado]="topico.status === 'Revisado'"
+                [class.badge--atrasado]="topico.status === 'Atrasado'"
+              >
+                {{ topico.status }}
+              </span>
             </span>
             <span class="col-revisao texto-secundario">{{ formatarData(topico.ultima_revisao_em) }}</span>
             <span class="col-revisoes texto-secundario">{{ formatarRevisoes(topico.total_revisoes) }}</span>

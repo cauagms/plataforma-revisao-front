@@ -281,6 +281,12 @@ $btn-bg: #0d0f1a;
     color: $texto-secundario;
   }
 
+  &--atrasado {
+    background: #fef3f2;
+    color: #d92d20;
+    border: 1px solid #fecdca;
+  }
+
   &--revisado {
     background: #ecfdf5;
     color: #059669;
