@@ -14,7 +14,6 @@
         id="nome"
         type="text"
         class="input"
-        placeholder="Seu nome"
         formControlName="nome"
         autocomplete="name"
       />
@@ -27,7 +26,6 @@
         id="email"
         type="email"
         class="input"
-        placeholder="seuemail@email.com"
         formControlName="email"
         autocomplete="email"
       />
@@ -41,7 +39,6 @@
           id="senha"
           [type]="showPassword ? 'text' : 'password'"
           class="input"
-          placeholder="••••••••"
           formControlName="senha"
           autocomplete="new-password"
         />
@@ -65,7 +62,7 @@
         </button>
       </div>
 
-      <small class="hint">Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula</small>
+      <small class="hint">Mínimo de 8 caracteres, com maiúscula, minúscula, número e símbolo.</small>
 
       @if (submitted && f.senha.hasError('required')) {
         <small class="error">A senha é obrigatória.</small>
@@ -81,7 +78,6 @@
           id="confirmar"
           [type]="showConfirmPassword ? 'text' : 'password'"
           class="input"
-          placeholder="••••••••"
           formControlName="confirmSenha"
           autocomplete="new-password"
         />

@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-cadastro',
   imports: [RouterModule, ReactiveFormsModule],
   templateUrl: './cadastro.html',
-  styleUrl: './cadastro.scss',
+  styleUrls: ['./cadastro.scss', './cadastro.responsivo.scss'],
 })
 export class Cadastro {
   form: FormGroup;
