@@ -1,4 +1,11 @@
 @media (max-width: 900px) {
+  .tabela-container {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
   .cards-resumo {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -9,11 +16,30 @@
 
   .tabela-linha {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid #e9e9ee;
+    border-radius: 14px;
+  }
+
+  .col-topico {
+    gap: 8px;
+  }
+
+  .col-prioridade,
+  .col-revisao,
+  .col-acao {
+    padding-top: 2px;
   }
 
   .col-acao {
     justify-content: flex-start;
+  }
+
+  .tabela-linha + .tabela-linha {
+    border-top: none;
+    margin-top: 10px;
   }
 }
 
@@ -24,5 +50,20 @@
 
   .titulo {
     font-size: 22px;
+  }
+
+  .tabela-linha {
+    gap: 18px;
+    padding: 18px 16px;
+  }
+
+  .col-topico {
+    gap: 9px;
+  }
+
+  .col-prioridade,
+  .col-revisao,
+  .col-acao {
+    padding-top: 4px;
   }
 }
