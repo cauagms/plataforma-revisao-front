@@ -1,0 +1,182 @@
+<main class="pagina">
+  <header class="cabecalho">
+    <div>
+      <h1 class="titulo">Histórico</h1>
+      <p class="subtitulo">Consulte suas revisões registradas do mais recente para o mais antigo.</p>
+    </div>
+  </header>
+
+  <ul class="cards-resumo" aria-label="Resumo do histórico">
+    <li class="card-resumo">
+      <span class="card-icone card-icone--azul" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="6.6" y="5.1" width="10.8" height="14.6" rx="2.1" fill="#fff"/>
+          <rect x="6.6" y="5.1" width="10.8" height="14.6" rx="2.1" stroke="#d9d7e6" stroke-width="0.8"/>
+          <path d="M9.1 4.6c0-1.1.9-2 2-2h1.8c1.1 0 2 .9 2 2v1H9.1v-1z" fill="#cad6ff"/>
+          <rect x="9.8" y="4" width="4.4" height="2.2" rx="1.1" fill="#8ea2ef"/>
+          <rect x="8.5" y="7.6" width="7" height="9.4" rx="1.2" fill="#efa089"/>
+          <line x1="10" y1="11" x2="14" y2="11" stroke="#fff5f1" stroke-width="1.05" stroke-linecap="round"/>
+          <line x1="10" y1="13.5" x2="14" y2="13.5" stroke="#fff5f1" stroke-width="1.05" stroke-linecap="round"/>
+          <line x1="10" y1="16" x2="12.9" y2="16" stroke="#fff5f1" stroke-width="1.05" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().total_revisoes }}</span>
+        <span class="card-label">Total de revisões</span>
+      </div>
+    </li>
+
+    <li class="card-resumo">
+      <span class="card-icone card-icone--vermelho" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4.5" y="5.2" width="15" height="14.8" rx="3" fill="#92a7f5"/>
+          <rect x="4.5" y="5.2" width="15" height="3.9" rx="3" fill="#4b7cff"/>
+          <path d="M7.9 3.6v3.1" stroke="#f4a390" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M16.1 3.6v3.1" stroke="#f4a390" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="7.1" y="11.2" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+          <rect x="10.9" y="11.2" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+          <rect x="14.7" y="11.2" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+          <rect x="7.1" y="14.8" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+          <rect x="10.9" y="14.8" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+          <rect x="14.7" y="14.8" width="2.2" height="2.2" rx="0.55" fill="#f6d5ce"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().revisoes_semana }}</span>
+        <span class="card-label">Revisões nesta semana</span>
+      </div>
+    </li>
+
+    <li class="card-resumo">
+      <span class="card-icone card-icone--amarelo" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="5" y="6.8" width="8.3" height="8.3" rx="1.6" fill="#4cb96e"/>
+          <rect x="9.6" y="5.2" width="8.3" height="8.3" rx="1.6" fill="#f0c24b"/>
+          <rect x="7.8" y="9.8" width="8.3" height="8.3" rx="1.6" fill="#5c76ff"/>
+          <rect x="12.1" y="8.1" width="6.9" height="6.9" rx="1.4" fill="#ea7b62"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().disciplinas_revisadas }}</span>
+        <span class="card-label">Disciplinas revisadas</span>
+      </div>
+    </li>
+
+    <li class="card-resumo">
+      <span class="card-icone card-icone--verde" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="4.2" fill="#9ae1b3"/>
+          <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="2.8" fill="#49bf78"/>
+          <polyline points="7.5 12.2 10.8 15.5 16.5 9.5" fill="none" stroke="#f7fff9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero card-numero--data">{{ formatarUltimaRevisao(resumo().ultima_revisao) }}</span>
+        <span class="card-label">Última revisão</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Filtros -->
+  <section class="filtros" aria-label="Filtros do histórico">
+    <div class="filtro-grupo">
+      <label class="filtro-label">DISCIPLINA</label>
+      <select class="filtro-select" (change)="onDisciplinaChange($event)">
+        <option value="">Todas</option>
+        @for (d of disciplinas(); track d.id) {
+          <option [value]="d.id">{{ d.nome }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label class="filtro-label">PERÍODO</label>
+      <div class="filtro-periodos">
+        <button
+          type="button"
+          class="filtro-periodo"
+          [class.filtro-periodo--ativo]="filtroPeriodo === 'hoje'"
+          (click)="selecionarPeriodo('hoje')">
+          Hoje
+        </button>
+        <button
+          type="button"
+          class="filtro-periodo"
+          [class.filtro-periodo--ativo]="filtroPeriodo === '7dias'"
+          (click)="selecionarPeriodo('7dias')">
+          Últimos 7 dias
+        </button>
+        <button
+          type="button"
+          class="filtro-periodo"
+          [class.filtro-periodo--ativo]="filtroPeriodo === '30dias'"
+          (click)="selecionarPeriodo('30dias')">
+          Últimos 30 dias
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contador de revisões -->
+  <div class="revisoes-contador">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="8" y1="6" x2="21" y2="6"/>
+      <line x1="8" y1="12" x2="21" y2="12"/>
+      <line x1="8" y1="18" x2="21" y2="18"/>
+      <line x1="3" y1="6" x2="3.01" y2="6"/>
+      <line x1="3" y1="12" x2="3.01" y2="12"/>
+      <line x1="3" y1="18" x2="3.01" y2="18"/>
+    </svg>
+    <span>
+      <strong>{{ revisoes().length }}</strong> revisões registradas
+    </span>
+  </div>
+
+  <!-- Lista de históricos -->
+  @if (revisoes().length) {
+    <ul class="lista-historico" aria-label="Lista de revisões">
+      @for (r of revisoes(); track r.id) {
+        <li class="historico-card">
+          <div class="historico-cabecalho">
+            <div class="historico-info">
+              <h3 class="historico-topico">{{ r.topico }}</h3>
+              <span class="historico-disciplina">
+                <span class="cor-bolinha" [style.background]="r.cor_disciplina" aria-hidden="true"></span>
+                {{ r.disciplina }}
+              </span>
+            </div>
+            <div class="historico-data">
+              <span class="historico-data-label">REVISADO EM</span>
+              <span class="historico-data-valor">{{ formatarDataRevisao(r.criado_em) }}</span>
+              <span class="historico-data-hora">{{ formatarHoraRevisao(r.criado_em) }}</span>
+            </div>
+          </div>
+
+          @if (r.reflexao) {
+            <div class="historico-reflexao">
+              <div class="reflexao-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                  <path d="M2 2l7.586 7.586"/>
+                  <circle cx="11" cy="11" r="2"/>
+                </svg>
+                <span class="reflexao-titulo">REFLEXÃO</span>
+              </div>
+              <p class="reflexao-texto">{{ r.reflexao }}</p>
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="estado-vazio">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c4c6cf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      <h3 class="estado-vazio-titulo">Nenhuma revisão encontrada</h3>
+      <p class="estado-vazio-texto">Suas revisões aparecerão aqui conforme você for estudando.</p>
+    </div>
+  }
+</main>
