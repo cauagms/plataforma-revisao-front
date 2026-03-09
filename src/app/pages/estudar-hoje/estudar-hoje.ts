@@ -131,9 +131,10 @@ export class EstudarHoje implements OnInit {
     if (!dataIso) return 'Nunca revisado';
     const data = parseApiUtcDate(dataIso);
     if (!data) return 'Nunca revisado';
-    const agora = new Date();
-    const diffMs = agora.getTime() - data.getTime();
-    const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const dataLocal = new Date(data.getFullYear(), data.getMonth(), data.getDate());
+    const diffDias = Math.round((hoje.getTime() - dataLocal.getTime()) / (1000 * 60 * 60 * 24));
 
     if (diffDias === 0) {
       return `Hoje, ${data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
