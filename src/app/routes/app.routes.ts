@@ -28,6 +28,16 @@ export const routes: Routes = [
           import('../pages/topicos/topicos').then((m) => m.TopicosPage),
       },
       {
+        path: 'historico',
+        loadComponent: () =>
+          import('../pages/historico/historico').then((m) => m.Historico),
+      },
+      {
+        path: 'configuracoes',
+        loadComponent: () =>
+          import('../pages/configuracoes/configuracoes').then((m) => m.Configuracoes),
+      },
+      {
         path: 'home',
         redirectTo: 'disciplinas',
         pathMatch: 'full',

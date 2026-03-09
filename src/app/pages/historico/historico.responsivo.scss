@@ -1,0 +1,52 @@
+@media (max-width: 900px) {
+  .cards-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filtros {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .filtro-periodos {
+    flex-wrap: wrap;
+  }
+
+  .historico-cabecalho {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .historico-data {
+    align-items: flex-start;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+
+  .historico-card {
+    padding: 18px 16px;
+  }
+
+  .historico-reflexao {
+    padding: 14px 16px;
+  }
+
+  .filtro-periodos {
+    gap: 6px;
+  }
+
+  .filtro-periodo {
+    padding: 0 14px;
+    font-size: 13px;
+  }
+}

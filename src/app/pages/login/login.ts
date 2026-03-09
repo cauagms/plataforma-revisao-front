@@ -66,7 +66,7 @@ export class Login {
       )
       .subscribe({
         error: (err) => {
-          this.errorMessage = err.error?.message || 'Erro ao fazer login. Tente novamente.';
+          this.errorMessage = err.error?.message || 'E-mail ou senha inválidos. Tente novamente.';
           this.cdr.markForCheck();
         },
       });

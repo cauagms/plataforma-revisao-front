@@ -1,0 +1,54 @@
+@media (max-width: 768px) {
+  .card-perfil-header {
+    padding: 20px 20px;
+  }
+
+  .card-perfil-body {
+    padding: 24px 20px;
+  }
+
+  .card-perfil-footer {
+    padding: 0 20px 24px;
+  }
+
+  .erro-mensagem {
+    padding: 0 20px 8px;
+  }
+
+  .footer-acoes {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 22px;
+  }
+
+  .card-perfil-header {
+    padding: 18px 18px;
+  }
+
+  .card-perfil-body {
+    padding: 20px 18px;
+  }
+
+  .card-perfil-footer {
+    padding: 0 18px 20px;
+  }
+
+  .erro-mensagem {
+    padding: 0 18px 8px;
+  }
+
+  .footer-acoes {
+    flex-direction: column;
+  }
+
+  .btn-editar,
+  .btn-salvar,
+  .btn-cancelar {
+    width: 100%;
+    justify-content: center;
+  }
+}

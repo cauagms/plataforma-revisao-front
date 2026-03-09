@@ -84,10 +84,10 @@
 
     <footer class="sidebar-bottom">
       <section class="usuario" aria-label="Usuário logado">
-        <div class="usuario-avatar" aria-hidden="true">{{ iniciais }}</div>
+        <div class="usuario-avatar" aria-hidden="true">{{ iniciais() }}</div>
         <div class="usuario-info">
-          <strong class="usuario-nome">{{ usuario?.nome }}</strong>
-          <span class="usuario-email">{{ usuario?.email }}</span>
+          <strong class="usuario-nome">{{ usuario()?.nome }}</strong>
+          <span class="usuario-email">{{ usuario()?.email }}</span>
         </div>
       </section>
 
