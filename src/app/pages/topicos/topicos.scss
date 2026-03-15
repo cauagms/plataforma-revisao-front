@@ -42,11 +42,6 @@ $btn-bg: #0d0f1a;
   color: $texto-secundario;
 }
 
-.breadcrumb-atual {
-  color: $texto-primario;
-  font-weight: 500;
-}
-
 // ─── Cabeçalho ──────────────────────────────────────
 .cabecalho-disciplina {
   display: flex;
@@ -58,12 +53,12 @@ $btn-bg: #0d0f1a;
 .disciplina-nome {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .cor-indicador {
-  width: 14px;
-  height: 14px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }

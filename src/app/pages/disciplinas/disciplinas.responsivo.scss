@@ -57,6 +57,21 @@
     width: 100%;
     justify-content: center;
   }
+
+  .cores-lista {
+    gap: 8px;
+  }
+
+  .cor-opcao {
+    width: 32px;
+    height: 32px;
+    border-width: 2px;
+
+    &--selecionada {
+      border-color: rgba(0, 0, 0, 0.12);
+      box-shadow: none;
+    }
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

@@ -1,0 +1,1071 @@
+$texto-primario: #12131a;
+$texto-secundario: #6b6f7b;
+$borda: #e9e9ee;
+$fundo-card: #fff;
+$btn-bg: #0d0f1a;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+// ─── Cabeçalho ──────────────────────────────────────
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.subtitulo {
+  font-size: 14px;
+  color: $texto-secundario;
+  margin: 8px 0 28px;
+}
+
+// ─── Filtro de Período ──────────────────────────────
+.periodo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.periodo-label {
+  font-size: 13px;
+  color: $texto-secundario;
+}
+
+.periodo-dropdown {
+  position: relative;
+}
+
+.periodo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $texto-primario;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+.periodo-opcoes {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 10px;
+  padding: 4px 0;
+  list-style: none;
+  margin: 0;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.periodo-opcao {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: $texto-primario;
+  cursor: pointer;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+
+  &--ativo {
+    background: #3b82f6;
+    color: #fff;
+
+    &:hover {
+      background: #2563eb;
+    }
+  }
+}
+
+// ─── Abas ───────────────────────────────────────────
+.abas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.aba {
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid $borda;
+  border-radius: 10px;
+  background: $fundo-card;
+  color: $texto-primario;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+
+  &--ativa {
+    background: $btn-bg;
+    color: #fff;
+    border-color: $btn-bg;
+
+    &:hover {
+      background: #1a1d2e;
+    }
+  }
+}
+
+// ─── Cards de Resumo ────────────────────────────────
+.cards-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.card-resumo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.card-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+
+  &--azul {
+    background: #eff2ff;
+    color: #4f6ef7;
+  }
+
+  &--roxo {
+    background: #eff2ff;
+    color: #4f6ef7;
+  }
+
+  &--amarelo {
+    background: #fff8eb;
+    color: #d4930d;
+  }
+
+  &--vermelho {
+    background: #fef2f2;
+    color: #dc3545;
+  }
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-numero {
+  font-size: 26px;
+  font-weight: 700;
+  color: $texto-primario;
+  line-height: 1;
+}
+
+.card-label {
+  font-size: 13px;
+  color: $texto-secundario;
+  margin-top: 4px;
+}
+
+// ─── Avatar ─────────────────────────────────────────
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+
+  &--pequeno {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+}
+
+// ─── Seção Card ─────────────────────────────────────
+.secao-card {
+  background: $fundo-card;
+  border: 1px solid $borda;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.secao-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.secao-card-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.texto-cinza {
+  font-size: 13px;
+  color: $texto-secundario;
+}
+
+// ─── Tabela ─────────────────────────────────────────
+.tabela-container {
+  display: block;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  thead,
+  tbody {
+    display: contents;
+  }
+}
+
+.tabela-header {
+  display: grid;
+  padding: 14px 0;
+  border-bottom: 1px solid $borda;
+
+  th {
+    font-size: 11px;
+    font-weight: 600;
+    color: $texto-secundario;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0;
+  }
+
+  &--desempenho {
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr;
+  }
+
+  &--pendentes {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  }
+}
+
+.tabela-linha {
+  display: grid;
+  align-items: center;
+  padding: 18px 0;
+
+  & + & {
+    border-top: 1px solid $borda;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  &--desempenho {
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr;
+  }
+
+  &--pendentes {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  }
+}
+
+// ─── Colunas Visão Geral ────────────────────────────
+.col-nome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.nome-texto {
+  font-size: 15px;
+  font-weight: 600;
+  color: $texto-primario;
+}
+
+.col-revisoes {
+  font-size: 14px;
+  color: $texto-primario;
+  font-weight: 500;
+}
+
+.col-ultima {
+  font-size: 14px;
+  color: $texto-secundario;
+}
+
+.col-progresso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.barra-progresso {
+  width: 100px;
+  height: 8px;
+  background: #e9e9ee;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &--pequena {
+    width: 70px;
+    height: 6px;
+  }
+
+  &--modal {
+    flex: 1;
+    height: 8px;
+  }
+}
+
+.barra-progresso-preenchido {
+  height: 100%;
+  background: $btn-bg;
+  border-radius: 4px;
+}
+
+.progresso-texto {
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  min-width: 36px;
+}
+
+.col-acao {
+  display: flex;
+}
+
+.btn-ver-detalhes {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: $btn-bg;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background: #1a1d2e;
+  }
+}
+
+// ─── Colunas Revisões Pendentes ─────────────────────
+.col-aluno {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.aluno-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.email-texto {
+  font-size: 13px;
+  color: $texto-secundario;
+}
+
+.col-ultima-pendente {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-revisao {
+  font-size: 14px;
+  color: $texto-primario;
+}
+
+.dias-sem-revisar {
+  font-size: 13px;
+  color: #d4930d;
+  font-style: italic;
+}
+
+.col-situacao {
+  display: flex;
+}
+
+.situacao-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid;
+
+  &--urgente {
+    background: #fef2f2;
+    color: #d92d20;
+    border-color: #fecaca;
+  }
+
+  &--atrasado {
+    background: #fff8eb;
+    color: #b45309;
+    border-color: #fde68a;
+  }
+
+}
+
+// ─── Estado Vazio ──────────────────────────────────
+.tabela-linha--vazia {
+  display: block;
+}
+
+.celula-vazia {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+  color: $texto-secundario;
+}
+
+// ─── Filtro de Atraso ───────────────────────────────
+.filtro-atraso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filtro-atraso-label {
+  font-size: 14px;
+  color: $texto-secundario;
+  white-space: nowrap;
+}
+
+.filtro-atraso-opcoes {
+  display: flex;
+  gap: 8px;
+}
+
+.filtro-pill {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid $borda;
+  border-radius: 20px;
+  background: $fundo-card;
+  color: $texto-primario;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+
+  &--ativo {
+    background: $btn-bg;
+    color: #fff;
+    border-color: $btn-bg;
+
+    &:hover {
+      background: #1a1d2e;
+    }
+  }
+}
+
+// ─── Atividade Recente - Layout ─────────────────────
+.atividade-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+.feed-card {
+  .secao-card-header {
+    margin-bottom: 16px;
+  }
+}
+
+.feed-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.feed-item {
+  padding: 20px 0;
+
+  & + & {
+    border-top: 1px solid $borda;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.feed-item-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.feed-item-esquerda {
+  display: flex;
+  gap: 12px;
+}
+
+.feed-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.feed-item-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: $texto-primario;
+}
+
+.feed-item-topico {
+  font-size: 14px;
+  color: $texto-primario;
+  font-weight: 600;
+}
+
+.feed-item-materia {
+  font-size: 13px;
+  color: $texto-secundario;
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.feed-item-data {
+  font-size: 13px;
+  color: $texto-secundario;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.feed-item-reflexao {
+  margin: 10px 0 0 48px;
+  padding: 12px 16px;
+  background: #fafafa;
+  border: 1px solid $borda;
+  border-radius: 10px;
+  font-size: 14px;
+  color: $texto-secundario;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+// ─── Painel Lateral ─────────────────────────────────
+.painel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .secao-card {
+    margin-bottom: 0;
+    padding: 20px;
+  }
+
+  .secao-card-titulo {
+    font-size: 16px;
+  }
+}
+
+.topicos-lista {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.topico-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topico-posicao {
+  font-size: 14px;
+  font-weight: 700;
+  color: $texto-secundario;
+  min-width: 18px;
+}
+
+.topico-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.topico-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topico-disciplina-label {
+  font-size: 12px;
+  color: $texto-secundario;
+}
+
+.topico-barra-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.topico-percentual {
+  font-size: 13px;
+  font-weight: 600;
+  color: $texto-primario;
+  min-width: 32px;
+  text-align: right;
+}
+
+// ─── Ranking de Alunos Ativos ───────────────────────
+.ranking-lista {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ranking-item-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ranking-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ranking-item-nome {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-primario;
+}
+
+.ranking-item-revisoes {
+  font-size: 12px;
+  color: $texto-secundario;
+}
+
+.ranking-posicao {
+  font-size: 14px;
+  font-weight: 600;
+  color: $texto-secundario;
+}
+
+.ranking-badge-streak,
+.feed-badge-streak {
+  font-size: 13px;
+  line-height: 1;
+  cursor: default;
+}
+
+// ─── Modal ──────────────────────────────────────────
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.modal-rotulo {
+  font-size: 11px;
+  font-weight: 600;
+  color: $texto-secundario;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.modal-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: $texto-primario;
+  margin: 0;
+}
+
+.modal-fechar {
+  background: none;
+  border: 1px solid $borda;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+.modal-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.modal-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-secao-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  color: $texto-secundario;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+// ─── Modal Pendências ──────────────────────────────
+.modal--pendencias {
+  max-width: 600px;
+
+  .modal-corpo {
+    overflow-y: auto;
+  }
+}
+
+.pendencias-aluno {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pendencias-aluno-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: $texto-primario;
+}
+
+.pendencias-tabela-wrapper {
+  border: 1px solid #d1d1d8;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pendencias-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #4a4d5a;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    border-bottom: 2px solid #c4c4cc;
+    background: #f3f3f6;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 14px;
+    color: $texto-primario;
+    border-bottom: 1px solid #d9d9e0;
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: #f9f9fb;
+  }
+}
+
+// ─── Badges de Urgência (Modal Pendências) ───────────
+.urgencia-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &--urgente {
+    background: #fef2f2;
+    color: #d92d20;
+  }
+
+  &--atrasado {
+    background: #fff8eb;
+    color: #b45309;
+  }
+
+  &--pendente {
+    background: #eff6ff;
+    color: #2563eb;
+  }
+}
+
+// ─── Info Lista (Modal Pendências) ──────────────────
+.pendencias-info-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pendencias-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.pendencias-info-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  flex-shrink: 0;
+
+  &--azul {
+    background: #eff2ff;
+    color: #4f6ef7;
+  }
+
+  &--vermelho {
+    background: #fef2f2;
+    color: #d92d20;
+  }
+
+  &--roxo {
+    background: #f3f0ff;
+    color: #7c3aed;
+  }
+
+  &--verde {
+    background: #ecfdf5;
+    color: #059669;
+  }
+}
+
+.pendencias-info-label {
+  color: $texto-secundario;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pendencias-info-valor {
+  color: $texto-primario;
+  font-weight: 600;
+}
+
+// ─── Botão Fechar Modal ─────────────────────────────
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.btn-fechar-modal {
+  height: 36px;
+  padding: 0 24px;
+  border: 1px solid $borda;
+  border-radius: 10px;
+  background: $fundo-card;
+  color: $texto-primario;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #f4f4f6;
+  }
+}
+
+// ─── Responsivo ─────────────────────────────────────
+@media (max-width: 1100px) {
+  .atividade-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .cabecalho {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .periodo-wrapper {
+    align-items: flex-start;
+  }
+
+  .abas {
+    flex-wrap: wrap;
+  }
+
+  .filtro-atraso {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .filtro-atraso-opcoes {
+    flex-wrap: wrap;
+  }
+
+  .tabela-header,
+  .tabela-linha {
+    &--desempenho {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    &--pendentes {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .col-progresso,
+  .col-ultima {
+    display: none;
+  }
+
+  .modal {
+    max-width: 100%;
+  }
+
+}

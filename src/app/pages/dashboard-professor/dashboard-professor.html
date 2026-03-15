@@ -1,0 +1,402 @@
+<main class="pagina">
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div>
+      <h1 class="titulo">Dashboard do Professor</h1>
+      <p class="subtitulo">Acompanhe o desempenho dos alunos</p>
+    </div>
+    @if (abaAtiva() !== 'revisoes-pendentes') {
+    <div class="periodo-wrapper">
+      <span class="periodo-label">Período</span>
+      <div class="periodo-dropdown">
+        <button type="button" class="periodo-btn" (click)="toggleDropdownPeriodo()">
+          {{ labelPeriodo() }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        @if (filtroDropdownAberto()) {
+        <ul class="periodo-opcoes">
+          <li>
+            <button type="button" class="periodo-opcao" [class.periodo-opcao--ativo]="filtroPeriodo() === '7dias'" (click)="selecionarPeriodo('7dias')">Últimos 7 dias</button>
+          </li>
+          <li>
+            <button type="button" class="periodo-opcao" [class.periodo-opcao--ativo]="filtroPeriodo() === '30dias'" (click)="selecionarPeriodo('30dias')">Últimos 30 dias</button>
+          </li>
+          <li>
+            <button type="button" class="periodo-opcao" [class.periodo-opcao--ativo]="filtroPeriodo() === 'mes'" (click)="selecionarPeriodo('mes')">Este mês</button>
+          </li>
+        </ul>
+        }
+      </div>
+    </div>
+    }
+  </header>
+
+  <!-- Abas -->
+  <nav class="abas" aria-label="Seções do dashboard">
+    <button type="button" class="aba" [class.aba--ativa]="abaAtiva() === 'visao-geral'" (click)="mudarAba('visao-geral')">Visão Geral</button>
+    <button type="button" class="aba" [class.aba--ativa]="abaAtiva() === 'atividade-recente'" (click)="mudarAba('atividade-recente')">Atividade Recente</button>
+    <button type="button" class="aba" [class.aba--ativa]="abaAtiva() === 'revisoes-pendentes'" (click)="mudarAba('revisoes-pendentes')">Revisões pendentes</button>
+  </nav>
+
+  <!-- Cards de Resumo -->
+  <ul class="cards-resumo" aria-label="Resumo geral">
+    <li class="card-resumo">
+      <span class="card-icone card-icone--azul" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().alunosAtivos }}</span>
+        <span class="card-label">Alunos ativos</span>
+      </div>
+    </li>
+    <li class="card-resumo">
+      <span class="card-icone card-icone--roxo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+          <polyline points="9 14 12 17 16 11"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().revisoesRealizadas }}</span>
+        <span class="card-label">Revisões realizadas</span>
+      </div>
+    </li>
+    <li class="card-resumo">
+      <span class="card-icone card-icone--amarelo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().mediaRevisoesPorAluno }}</span>
+        <span class="card-label">Média de revisões por aluno</span>
+      </div>
+    </li>
+    <li class="card-resumo">
+      <span class="card-icone card-icone--vermelho" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </span>
+      <div class="card-info">
+        <span class="card-numero">{{ resumo().revisoesPendentes }}</span>
+        <span class="card-label">Revisões pendentes</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ═══ ABA: Visão Geral ═══ -->
+  @if (abaAtiva() === 'visao-geral') {
+  <section class="secao-card">
+    <h2 class="secao-card-titulo">Desempenho dos alunos</h2>
+
+    <table class="tabela-container" aria-label="Desempenho dos alunos">
+      <thead>
+        <tr class="tabela-header tabela-header--desempenho">
+          <th class="col-nome" scope="col">NOME</th>
+          <th class="col-revisoes" scope="col">REVISÕES</th>
+          <th class="col-ultima" scope="col">ÚLTIMA REVISÃO</th>
+          <th class="col-progresso" scope="col">PROGRESSO</th>
+          <th class="col-acao" scope="col">AÇÃO</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (aluno of alunosDesempenho(); track aluno.nome) {
+        <tr class="tabela-linha tabela-linha--desempenho">
+          <td class="col-nome">
+            <div class="avatar" [style.background]="aluno.cor">{{ aluno.iniciais }}</div>
+            <span class="nome-texto">{{ aluno.nome }}</span>
+          </td>
+          <td class="col-revisoes">{{ aluno.revisoes }}</td>
+          <td class="col-ultima">{{ aluno.ultimaRevisao }}</td>
+          <td class="col-progresso">
+            <div class="barra-progresso">
+              <div class="barra-progresso-preenchido" [style.width.%]="aluno.progresso"></div>
+            </div>
+            <span class="progresso-texto">{{ aluno.progresso }}%</span>
+          </td>
+          <td class="col-acao">
+            <button type="button" class="btn-ver-detalhes" (click)="abrirModalPendencias(aluno)">Ver detalhes</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+  }
+
+  <!-- ═══ ABA: Atividade Recente ═══ -->
+  @if (abaAtiva() === 'atividade-recente') {
+  <div class="atividade-layout">
+    <!-- Feed de atividades -->
+    <section class="secao-card feed-card">
+      <div class="secao-card-header">
+        <h2 class="secao-card-titulo">Feed de atividades</h2>
+        <span class="texto-cinza">Últimas revisões</span>
+      </div>
+
+      <div class="feed-lista">
+        @for (a of atividades(); track a.nome + a.topico) {
+        <article class="feed-item">
+          <div class="feed-item-topo">
+            <div class="feed-item-esquerda">
+              <div class="avatar" [style.background]="a.cor">{{ a.iniciais }}</div>
+              <div class="feed-item-info">
+                <span class="feed-item-nome">
+                  {{ a.nome }}
+                  @if (a.emSequencia >= 3) {
+                    <span class="feed-badge-streak" title="Sequência de {{ a.emSequencia }} revisões no prazo">🔥</span>
+                  }
+                </span>
+                <span class="feed-item-topico">{{ a.topico }}</span>
+                <span class="feed-item-materia">Matéria: <span [style.color]="a.corDisciplina">{{ a.disciplina }}</span></span>
+              </div>
+            </div>
+            <span class="feed-item-data">{{ a.data }}</span>
+          </div>
+          <blockquote class="feed-item-reflexao">"{{ a.reflexao }}"</blockquote>
+        </article>
+        }
+      </div>
+    </section>
+
+    <!-- Painel lateral -->
+    <aside class="painel-lateral">
+      <!-- Tópicos com mais dificuldade -->
+      <section class="secao-card">
+        <h2 class="secao-card-titulo">Tópicos com mais dificuldade</h2>
+        <ol class="topicos-lista">
+          @for (t of topicosDificuldade(); track t.nome; let i = $index) {
+          <li class="topico-item">
+            <span class="topico-posicao">{{ i + 1 }}</span>
+            <div class="topico-info">
+              <span class="topico-nome">{{ t.nome }}</span>
+              <span class="topico-disciplina-label">{{ t.disciplina }}</span>
+            </div>
+            <div class="topico-barra-wrapper">
+              <div class="barra-progresso barra-progresso--pequena">
+                <div class="barra-progresso-preenchido" [style.width.%]="t.percentual"></div>
+              </div>
+              <span class="topico-percentual">{{ t.percentual }}%</span>
+            </div>
+          </li>
+          }
+        </ol>
+      </section>
+
+      <!-- Alunos mais ativos -->
+      <section class="secao-card">
+        <div class="secao-card-header">
+          <h2 class="secao-card-titulo">Alunos mais ativos</h2>
+          <span class="texto-cinza">{{ labelPeriodo() }}</span>
+        </div>
+        <ul class="ranking-lista">
+          @for (a of alunosMaisAtivos(); track a.nome) {
+          <li class="ranking-item">
+            <div class="ranking-item-esquerda">
+              <div class="avatar avatar--pequeno" [style.background]="a.cor">{{ a.iniciais }}</div>
+              <div class="ranking-item-info">
+                <span class="ranking-item-nome">
+                  {{ a.nome }}
+                  @if (a.emSequencia >= 3) {
+                    <span class="ranking-badge-streak" title="Sequência de {{ a.emSequencia }} dias">🔥</span>
+                  }
+                </span>
+                <span class="ranking-item-revisoes">{{ a.revisoes }} revisões</span>
+              </div>
+            </div>
+            <span class="ranking-posicao">{{ a.posicao }}º</span>
+          </li>
+          }
+        </ul>
+      </section>
+    </aside>
+  </div>
+  }
+
+  <!-- ═══ ABA: Revisões Pendentes ═══ -->
+  @if (abaAtiva() === 'revisoes-pendentes') {
+  <section class="secao-card">
+    <div class="secao-card-header">
+      <h2 class="secao-card-titulo">Alunos com revisões pendentes</h2>
+      @if (alunosPendentesFiltrados().length > 0) {
+        <span class="texto-cinza">{{ alunosPendentesFiltrados().length }} alunos</span>
+      }
+    </div>
+
+    <!-- Filtro por atraso -->
+    <div class="filtro-atraso">
+      <span class="filtro-atraso-label">Filtrar por atraso:</span>
+      <div class="filtro-atraso-opcoes">
+        <button type="button" class="filtro-pill" [class.filtro-pill--ativo]="filtroAtraso() === 'todos'" (click)="mudarFiltroAtraso('todos')">Todos</button>
+        <button type="button" class="filtro-pill" [class.filtro-pill--ativo]="filtroAtraso() === '7dias'" (click)="mudarFiltroAtraso('7dias')">Mais de 7 dias</button>
+        <button type="button" class="filtro-pill" [class.filtro-pill--ativo]="filtroAtraso() === '15dias'" (click)="mudarFiltroAtraso('15dias')">Mais de 15 dias</button>
+        <button type="button" class="filtro-pill" [class.filtro-pill--ativo]="filtroAtraso() === '30dias'" (click)="mudarFiltroAtraso('30dias')">Mais de 30 dias</button>
+      </div>
+    </div>
+
+    <table class="tabela-container" aria-label="Alunos com revisões pendentes">
+      <thead>
+        <tr class="tabela-header tabela-header--pendentes">
+          <th class="col-aluno" scope="col">ALUNO</th>
+          <th class="col-ultima-pendente" scope="col">ÚLTIMA REVISÃO</th>
+          <th class="col-situacao" scope="col">SITUAÇÃO</th>
+          <th class="col-acao" scope="col">AÇÃO</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (aluno of alunosPendentesFiltrados(); track aluno.nome) {
+        <tr class="tabela-linha tabela-linha--pendentes">
+          <td class="col-aluno">
+            <div class="avatar" [style.background]="aluno.cor">{{ aluno.iniciais }}</div>
+            <div class="aluno-info-col">
+              <span class="nome-texto">{{ aluno.nome }}</span>
+              <span class="email-texto">{{ aluno.email }}</span>
+            </div>
+          </td>
+          <td class="col-ultima-pendente">
+            <span class="data-revisao">{{ aluno.ultimaRevisao }}</span>
+            <span class="dias-sem-revisar">
+              {{ aluno.diasSemRevisar }} dias de atraso
+            </span>
+          </td>
+          <td class="col-situacao">
+            <span class="situacao-badge"
+              [class.situacao-badge--urgente]="aluno.situacao === 'Urgente'"
+              [class.situacao-badge--atrasado]="aluno.situacao === 'Atrasado'">
+              {{ aluno.situacao }}
+            </span>
+          </td>
+          <td class="col-acao">
+            <button type="button" class="btn-ver-detalhes" (click)="abrirModal(aluno)">Ver detalhes</button>
+          </td>
+        </tr>
+        } @empty {
+        <tr class="tabela-linha tabela-linha--pendentes tabela-linha--vazia">
+          <td colspan="4" class="celula-vazia">Nenhum aluno com 7 dias ou mais de atraso.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+  }
+</main>
+
+<!-- ═══ Modal: Pendências do Aluno (Visão Geral) ═══ -->
+@if (modalPendenciasAberto() && pendenciasSelecionada()) {
+<div class="modal-overlay" (click)="fecharModalPendenciasPeloOverlay($event)" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-titulo">
+  <article class="modal modal--pendencias">
+    <header class="modal-header">
+      <h2 id="modal-pendencias-titulo" class="modal-titulo">Pendências do aluno</h2>
+      <button type="button" class="modal-fechar" aria-label="Fechar modal" (click)="fecharModalPendencias()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6f7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="modal-corpo">
+      <!-- Aluno -->
+      <div class="pendencias-aluno">
+        <div class="avatar" [style.background]="pendenciasSelecionada()!.cor">{{ pendenciasSelecionada()!.iniciais }}</div>
+        <span class="pendencias-aluno-nome">{{ pendenciasSelecionada()!.nome }}</span>
+      </div>
+
+      <!-- Tópicos pendentes -->
+      <div class="modal-secao">
+        <h3 class="modal-secao-titulo">Tópicos pendentes</h3>
+        <div class="pendencias-tabela-wrapper">
+          <table class="pendencias-tabela">
+            <thead>
+              <tr>
+                <th>Disciplina</th>
+                <th>Tópico</th>
+                <th>Atraso</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (t of pendenciasSelecionada()!.topicosPendentes; track t.topico) {
+              <tr>
+                <td>{{ t.disciplina }}</td>
+                <td>{{ t.topico }}</td>
+                <td>{{ t.dias === 0 ? 'Hoje' : t.dias + ' dias' }}</td>
+                <td>
+                  <span class="urgencia-badge"
+                    [class.urgencia-badge--urgente]="t.urgencia === 'Urgente'"
+                    [class.urgencia-badge--atrasado]="t.urgencia === 'Atrasado'"
+                    [class.urgencia-badge--pendente]="t.urgencia === 'Pendente'">
+                    {{ t.urgencia }}
+                  </span>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Blocos informativos -->
+      <ul class="pendencias-info-lista">
+        <li class="pendencias-info-item">
+          <span class="pendencias-info-icone pendencias-info-icone--azul" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </span>
+          <span class="pendencias-info-label">Última revisão feita:</span>
+          <span class="pendencias-info-valor">{{ formatarTextoAtraso(pendenciasSelecionada()!.ultimaRevisaoFeita) }}</span>
+        </li>
+        <li class="pendencias-info-item">
+          <span class="pendencias-info-icone pendencias-info-icone--vermelho" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            </svg>
+          </span>
+          <span class="pendencias-info-label">Total de revisões pendentes:</span>
+          <span class="pendencias-info-valor">{{ pendenciasSelecionada()!.totalRevisoesPendentes === 0 ? 'Nenhum' : pendenciasSelecionada()!.totalRevisoesPendentes + ' tópicos' }}</span>
+        </li>
+        <li class="pendencias-info-item">
+          <span class="pendencias-info-icone pendencias-info-icone--roxo" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          <span class="pendencias-info-label">Disciplina mais acumulada:</span>
+          <span class="pendencias-info-valor">{{ pendenciasSelecionada()!.disciplinaMaisAcumulada ? formatarTextoAtraso(pendenciasSelecionada()!.disciplinaMaisAcumulada) : 'Nenhuma' }}</span>
+        </li>
+        <li class="pendencias-info-item">
+          <span class="pendencias-info-icone pendencias-info-icone--verde" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+          <span class="pendencias-info-label">Próxima revisão recomendada:</span>
+          <span class="pendencias-info-valor">{{ pendenciasSelecionada()!.proximaRevisaoRecomendada ? pendenciasSelecionada()!.proximaRevisaoRecomendada.split(' - ')[0] : 'Nenhuma revisão pendente' }}</span>
+        </li>
+      </ul>
+
+      <footer class="modal-acoes">
+        <button type="button" class="btn-fechar-modal" (click)="fecharModalPendencias()">Fechar</button>
+      </footer>
+    </div>
+  </article>
+</div>
+}
+
+<!-- ═══ Modal: Detalhes do Aluno (desativado) ═══ -->
