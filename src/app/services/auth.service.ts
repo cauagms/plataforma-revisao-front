@@ -28,7 +28,8 @@ export class AuthService {
       switchMap(() => this.me()),
       tap((user) => {
         this.usuario.set(user);
-        this.router.navigate(['/home']);
+        const destino = user.role === 'professor' ? '/dashboard-professor' : '/home';
+        this.router.navigate([destino]);
       })
     );
   }

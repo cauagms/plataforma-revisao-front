@@ -1,5 +1,9 @@
 // ─── Tablet ────────────────────────────────────────
 @media (min-width: 641px) and (max-width: 1024px) {
+  .breadcrumb {
+    display: none;
+  }
+
   .tabela-header,
   .tabela-row {
     grid-template-columns: 1.6fr 0.7fr 1fr 0.9fr 36px;
@@ -35,8 +39,7 @@
 // ─── Mobile ────────────────────────────────────────
 @media (max-width: 640px) {
   .breadcrumb {
-    font-size: 13px;
-    margin-bottom: 16px;
+    display: none;
   }
 
   .cabecalho-disciplina {

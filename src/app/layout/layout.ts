@@ -14,6 +14,9 @@ export class Layout implements OnInit {
 
   sidebarAberta = false;
   usuario = this.authService.usuario;
+  isProfessor = computed(() => this.usuario()?.role === 'professor');
+  isAluno = computed(() => this.usuario()?.role === 'aluno');
+  linkHome = computed(() => this.isProfessor() ? '/dashboard-professor' : '/home');
 
   iniciais = computed(() => {
     const nome = this.usuario()?.nome;
